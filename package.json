@@ -1,0 +1,16 @@
+{
+  "name": "survey-demo-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./app/index.js"
+  },
+  "author": "Amy",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "firebase-admin": "^5.0.0"
+  }
+}

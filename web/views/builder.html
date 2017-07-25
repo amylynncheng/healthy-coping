@@ -1,0 +1,85 @@
+<section id="header">
+   <div class="container">
+     <div class="row">
+       <div class="col-md-12 col-sm-12">
+        <h1 id="builder-header" ng-hide="initialized">Customize the Surveys<span id="sub"> on the Self-Management App </span></h1>
+        <br>
+        <p ng-hide="initialized">Begin by filling out the following form:</p>
+        <br>
+        </div>
+      </div>
+   </div>
+ </section>
+
+<section id="initial-form" ng-hide="initialized">
+     <div class="container">
+         <div class="row">
+             <div class="col-md-6 col-sm-5">
+                 <form name="form">
+                   <div class="form-group">
+                     <label>Survey Name: </label>
+                     <input class="form-control" type="text" placeholder="Enter name" ng-model="surveyName" required>
+                   </div>
+                   <div class="form-group">
+                     <label>Survey Type: </label>
+                     <input class="form-control" type="text" placeholder="Monitoring, Depression, Anxiety, etc." ng-model="surveyType" required>
+                   </div>
+                   <div class="form-group">
+                     <label>Number of Questions: </label>
+                     <input class="form-control" type="number" placeholder="Enter number" ng-model="numQuestions" required></input>
+                   </div>
+                   <input type="submit" ng-click="saveGeneralInfo(); iterate()" ng-disabled="form.$invalid" class="btn btn-primary">
+                 </form>
+             </div>
+
+             <div class="col-md-7 col-sm-7">
+
+             </div>
+         </div>
+     </div>
+ </section>
+
+<!-- Second form shows after intitalization; for question creations -->
+<section id="header2">
+   <div class="container">
+     <div class="row">
+       <div class="col-lg-12 col-sm-12">
+        <h1 id="builder-header" ng-show="initialized">Customize the Surveys<span id="sub"> on the Self-Management App </span></h1>
+        <br>
+        <p ng-show="initialized">Write your questions:</p>
+        <br>
+        </div>
+      </div>
+   </div>
+ </section>
+
+ <section id="second-form" ng-show="initialized">
+     <div class="container">
+         <div class="row">
+             <div class="col-md-12 col-sm-12">
+                 <form name="form2" class="well well-lg">
+                  <div class="form-group" ng-repeat="number in qNum">
+                     <label>Question {{number}}: </label>
+                     <input class="form-control" type="text" placeholder="Write the question here" ng-model="questionsArray[$index].title" required>
+                     <br id="spacing">
+                     <div class="dropdown">
+                        <span><select id="answerOptions" ng-model="questionsArray[$index].type" required>
+                           <option value="" disabled selected hidden>Answer Category</option>
+                           <option ng-repeat="option in options">{{option}}</option>
+                        </select></span>
+                     </div>
+                  </div>
+                  <button ng-click="postToFB(); saveQandA()" ng-disabled="form2.$invalid" class="btn btn-primary">Submit</button>      
+                 </form>
+
+               <div class="alert alert-success" role="alert" ng-show="finished">
+                  <strong>Thank you for your submission.</strong> The survey you just created is now available on the app! 
+                  <a href="./" class="btn btn-default">Return to Home</a>
+               </div>
+             </div>
+             <div class="col-md-7 col-sm-7">
+
+             </div>
+         </div>
+     </div>
+ </section>
