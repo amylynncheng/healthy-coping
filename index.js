@@ -207,6 +207,8 @@ getAllQuestion().then(function(returnVal) {
         extended: true
     }));
 
+    restService.use(express.static(__dirname + '/web'));
+
     restService.use(bodyParser.json());
     restService.post('/reply', function(req, res) {
         console.log(req.body.result.resolvedQuery);
@@ -447,8 +449,8 @@ getAllQuestion().then(function(returnVal) {
         });
     });
 
-    restService.get('/', function(req, res) {
-        return "Hello and welcome.";
+    restService.get('*', function(req, res) {
+       res.sendfile('/web/index.html'); // load the single view file (angular will handle the page changes on the front-end)
     });
 
     restService.listen((process.env.PORT || 8085), function() {
