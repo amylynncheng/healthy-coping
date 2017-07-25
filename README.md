@@ -6,3 +6,9 @@ Healthy Coping is a Google Home assistant application that acts as an innovative
 
 Frameworks used: 
 * Node.js for webhook and AngularJS for web interface
+
+View the Healthy Coping website here: 
+https://healthycoping.herokuapp.com/#!/
+
+Fulfillment by webhook by using this url: https://healthycoping.herokuapp.com/reply
+
