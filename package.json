@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js"
   },
-  "author": "Amy",
+  "author": "Amy Cheng",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.17.2",
