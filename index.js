@@ -1,5 +1,6 @@
 'use strict';
 
+//dependencies
 const express = require('express');
 const bodyParser = require('body-parser');
 const admin = require("firebase-admin");
@@ -21,6 +22,7 @@ var vegetables = [];
 var starches = [];
 var proteins = [];
 
+//function that reads all necessary data from Firebase database 
 function getAllQuestion() {
     var ref = admin.database().ref("/").child('monitoring');
     var afterMonitoring = ref.once('value').then(function(snapshot) {
@@ -105,6 +107,10 @@ var copeAnswers = [];
 var date = 0;
 var score = 0;
 
+/*
+* Evaluates the risk of the user's current blood sugar level and returns appropriate diagnosis and recommendation 
+* params - ate, sugar, medication, exercise, weight represent data extracted from user inputted answers to the monitoring survey 
+*/
 function monitorResult(ate, sugar, medication, exercise, weight) {
     var result = "";
     if (ate == "yes" && sugar >= 150) {
@@ -125,6 +131,7 @@ function monitorResult(ate, sugar, medication, exercise, weight) {
     return result;
 }
 
+//Converts array of coping answers to numerical value based on the answer; based on the PHQ-9 scoring mechanism 
 function copingResult(answers) {
     var result = "";
     for (var i = 0; i < answers.length; i++) {
@@ -153,6 +160,7 @@ function copingResult(answers) {
     return result;
 }
 
+//Writes monitoring survey answers to Firebase database
 function writeMonAnswers(monitorAnswers) {
     var fb = admin.database().ref('/monitoringAnswers/patient1');
     fb.push({
@@ -169,6 +177,7 @@ function writeMonAnswers(monitorAnswers) {
     });
 }
 
+//Writes coping survey answers to Firebase database
 function writeCopeAnswers(copeAnswers) {
     var fb = admin.database().ref('/copingAnswers/patient1');
     fb.push({
@@ -193,6 +202,7 @@ function writeCopeAnswers(copeAnswers) {
 var tries = 0;
 var previousAction = "none";
 
+//Ensures that Firebase data is read then saved into appropriate arrays, 
 getAllQuestion().then(function(returnVal) {
     monitoring = returnVal.monitoring
     coping = returnVal.coping
@@ -210,6 +220,8 @@ getAllQuestion().then(function(returnVal) {
     restService.use(express.static(__dirname + '/web'));
 
     restService.use(bodyParser.json());
+
+    //POST request for webhook fulfillment
     restService.post('/reply', function(req, res) {
         console.log(req.body.result.resolvedQuery);
         var action = req.body.result.action;
@@ -450,7 +462,8 @@ getAllQuestion().then(function(returnVal) {
     });
 
     restService.get('*', function(req, res) {
-       res.sendfile('/web/index.html'); // load the single view file (angular will handle the page changes on the front-end)
+    // load the single view file (angular will handle the page changes on the front-end)
+       res.sendfile('/web/index.html'); 
     });
 
     restService.listen((process.env.PORT || 8085), function() {
