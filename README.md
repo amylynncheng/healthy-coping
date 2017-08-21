@@ -12,3 +12,4 @@ https://healthycoping.herokuapp.com/#!/
 
 Fulfillment by webhook by using this url: https://healthycoping.herokuapp.com/reply
 
+*This material is based upon work supported by the National Science Foundation under Award Number: CNS-1659134 and the University of Missouri*
